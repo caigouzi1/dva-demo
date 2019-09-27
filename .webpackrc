@@ -1,5 +1,13 @@
 {
   "extraBabelPlugins": [
     ["import", { "libraryName": "antd", "libraryDirectory": "es", "style": "css" }]
-  ]
+  ],
+  "proxy": {
+    "/dock": {
+      "target": "http://172.16.1.22/dock/",
+      "changeOrigin": true,
+      "pathRewrite": {"^/dock": ""}
+    }
+  }
+
 }

@@ -1,7 +1,10 @@
 import React from "react";
-import { Router, Route, Switch } from "dva/router";
+import { Router, Route, Switch, Redirect } from "dva/router";
 import CountPage from "./pages/count/index";
-import HomePage from "./pages/layout";
+import Nav from "./pages/layout";
+import HomePage from "./pages/home";
+import ListPage from "./pages/list";
+import ProdectPage from "./pages/product";
 
 function RouterConfig({ history }) {
   return (
@@ -10,11 +13,15 @@ function RouterConfig({ history }) {
         <Route
           path="/"
           render={() => (
-            <HomePage>
+            <Nav>
               <Switch>
+                <Route path="/home" component={HomePage} />
                 <Route path="/count" component={CountPage} />
+                <Route path="/prodect" component={ProdectPage} />
+                <Route path="/list" component={ListPage} />
+                <Redirect to="/home" />
               </Switch>
-            </HomePage>
+            </Nav>
           )}
         />
       </div>

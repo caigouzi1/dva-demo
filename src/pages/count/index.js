@@ -13,8 +13,8 @@ export default class extends React.Component {
     // count = count.count
     return (
       <div className={styles.normal}>
-        <div className={styles.record}> Highest Record: {count.record} </div>{" "}
-        <div className={styles.current}> {count.current} </div>{" "}
+        <div className={styles.record}> Highest Record: {count.record} </div>
+        <div className={styles.current}> {count.current} </div>
         <div className={styles.button}>
           <button
             onClick={() => {

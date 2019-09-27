@@ -9,6 +9,7 @@ import { createBrowserHistory as createHistory } from "history";
 const app = dva({
   history: createHistory()
 });
+
 // 2. Plugins
 // app.use({});
 

@@ -1,27 +1,51 @@
-import { Layout } from "antd";
+import { Layout, Icon, Card } from "antd";
 import React from "react";
 import logo from "../../assets/logo.svg";
 import "./layout.less";
 import Nav from "./Nav.jsx";
+import { Link } from "dva/router";
 
 const { Header, Footer, Sider, Content } = Layout;
 
 export default class Home extends React.Component {
+  state = {
+    collapsed: false
+  };
+  toggle = () => {
+    this.setState({
+      collapsed: !this.state.collapsed
+    });
+  };
   render() {
-    console.log(this.props);
     return (
       <div>
         <Layout>
-          <Sider className="sider">
+          <Sider
+            className="sider"
+            trigger={null}
+            collapsible
+            collapsed={this.state.collapsed}
+          >
             <div className="logo">
-              <img src={logo} alt="" />
+              <Link to="/home">
+                <img src={logo} alt="" />
+              </Link>
             </div>
             <Nav />
           </Sider>
-          <Layout>
-            <Header style={{ height: 80 }}>Header</Header>
-            <Content> {this.props.children}</Content>
-            <Footer>Footer</Footer>
+          <Layout className="container">
+            <Header style={{ background: "#fff", padding: 0, height: 80 }}>
+              <Icon
+                className="trigger"
+                type={this.state.collapsed ? "menu-unfold" : "menu-fold"}
+                onClick={this.toggle}
+                style={{ fontSize: 30, marginTop: 20, marginLeft: 20 }}
+              />
+            </Header>
+            <Card className="content">
+              <Content>{this.props.children}</Content>
+            </Card>
+            <Footer>@基于DVA框架的功能测试</Footer>
           </Layout>
         </Layout>
       </div>
