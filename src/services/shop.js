@@ -2,6 +2,6 @@ import { post } from "../utils/http";
 
 export default {
   async queryAll(params) {
-    return post("/shop/all");
+    return await post("/shop/all", params);
   }
 };

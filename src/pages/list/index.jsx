@@ -1,62 +1,77 @@
 import React, { Component } from "react";
-import { Table } from "antd";
+import { Table, Card, Form, Button, Input, InputNumber } from "antd";
 import { connect } from "dva";
 import { post } from "../../utils/http";
-import Api from "../../services/shop";
 
 const columns = [
   {
-    title: "Name",
-    dataIndex: "name",
-    key: "name",
-    render: text => <a>{text}</a>
+    title: "商品",
+    dataIndex: "title"
   },
   {
-    title: "Age",
-    dataIndex: "age",
-    key: "age"
+    title: "类目",
+    dataIndex: "category"
   },
   {
-    title: "Address",
-    dataIndex: "address",
-    key: "address"
+    title: "封面",
+    dataIndex: "thumb",
+    render: text => <img src={text} style={{ height: 80 }}></img>
   },
   {
-    title: "Tags",
-    key: "tags",
-    dataIndex: "tags"
+    title: "价格",
+    dataIndex: "price"
   },
   {
-    title: "Action",
-    key: "action",
-    render: (text, record) => (
-      <span>
-        <a>Invite {record.name}</a>
-      </span>
-    )
+    title: "销售量",
+    dataIndex: "sales"
   }
 ];
 
 @connect(list => ({
   list
 }))
+@Form.create()
 export default class List extends Component {
-  // componentDidMount() {
-  //   this.props.dispatch({
-  //     type: "list/all"
-  //   });
-  // }
+  componentDidMount() {
+    this.props.dispatch({
+      type: "list/shopAll"
+    });
+  }
+
+  fileterAll(value) {
+    let params = {
+      title: value
+    };
+    this.props.dispatch({
+      type: "list/shopAll",
+      payload: params
+    });
+  }
 
   render() {
     // let res = post("/shop/all");
-    console.log(Api.queryAll());
-    let res = Api.queryAll();
-    console.log("请求数据1");
-    console.log(res);
-
-    console.log(res);
+    const formItemLayout = {};
     const { list } = this.props.list;
-    console.log(list);
-    return <Table columns={columns} dataSource={list.data} />;
+    const { getFieldDecorator } = this.props.form;
+    const { Search } = Input;
+    return (
+      <div>
+        <Card>
+          <Search
+            addonBefore="商品名"
+            placeholder="请输入商品名"
+            enterButton="筛选"
+            size="default"
+            style={{ width: 300 }}
+            onSearch={value => {
+              this.fileterAll(value);
+            }}
+          />
+        </Card>
+        <Card style={{ marginTop: 20 }}>
+          <Table columns={columns} dataSource={list.data} />
+        </Card>
+      </div>
+    );
   }
 }

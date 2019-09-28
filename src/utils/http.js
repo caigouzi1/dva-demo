@@ -8,7 +8,7 @@ axios.interceptors.request.use(
     //const token = getCookie('名称');
     config.data = JSON.stringify(config.data);
     config.headers = {
-      "Content-Type": " application/x-www-form-urlencoded"
+      "Content-Type": "application/json"
     };
     return config;
   },
@@ -57,6 +57,7 @@ export function fetch(url, params = {}) {
  * @returns {Promise}
  */
 export function post(url, data = {}) {
+  console.log(data);
   return new Promise((resolve, reject) => {
     axios.post(url, data).then(response => {
       resolve(response.data);
