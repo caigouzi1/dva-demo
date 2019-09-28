@@ -15,8 +15,6 @@ export default {
       return { ...state, data: state.data };
     },
     add(state, action) {
-      let data = state.data;
-      data = data.push(action.payload);
       return { ...state, data: state.data };
     },
     addList(state, action) {

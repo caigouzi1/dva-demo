@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import { Table, Card, Form, Button, Input, InputNumber } from "antd";
+import { Table, Card, Form, Input } from "antd";
 import { connect } from "dva";
-import { post } from "../../utils/http";
 
 const columns = [
   {
@@ -15,7 +14,7 @@ const columns = [
   {
     title: "封面",
     dataIndex: "thumb",
-    render: text => <img src={text} style={{ height: 80 }}></img>
+    render: text => <img src={text} style={{ height: 80 }} alt=""></img>
   },
   {
     title: "价格",
@@ -50,9 +49,7 @@ export default class List extends Component {
 
   render() {
     // let res = post("/shop/all");
-    const formItemLayout = {};
     const { list } = this.props.list;
-    const { getFieldDecorator } = this.props.form;
     const { Search } = Input;
     return (
       <div>
